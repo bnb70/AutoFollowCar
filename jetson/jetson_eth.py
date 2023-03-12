@@ -2,20 +2,20 @@ import socket
 
 def test():
 
-    HOST = '192.168.55.100'
-    PORT = 7000
+    rpi4_ip = '192.168.55.100'
+    ip_port = 8888
 
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.connect((HOST, PORT))
+    jetson_eth = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    jetson_eth.connect((rpi4_ip, ip_port))
 
     while True:
         outdata = input('please input message: ')
         print('send: ' + outdata)
-        s.send(outdata.encode())
+        jetson_eth.send(outdata.encode())
 
-        indata = s.recv(1024)
+        indata = jetson_eth.recv(1024)
         if len(indata) == 0:  # connection closed
-            s.close()
+            jetson_eth.close()
             print('server closed connection.')
             break
         print('recv: ' + indata.decode())

@@ -2,19 +2,19 @@ import socket
 
 def test():
 
-    HOST = '192.168.55.100'
-    PORT = 7000
+    rpi4_ip = '192.168.55.100'
+    ip_port = 8888
 
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    s.bind((HOST, PORT))
-    s.listen(5)
+    rpi4_eth = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    rpi4_eth.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    rpi4_eth.bind((rpi4_ip, ip_port))
+    rpi4_eth.listen(5)
 
-    print('server start at: %s:%s' % (HOST, PORT))
+    print('server start at: %s:%s' % (rpi4_ip, ip_port))
     print('wait for connection...')
 
     while True:
-        conn, addr = s.accept()
+        conn, addr = rpi4_eth.accept()
         print('connected by ' + str(addr))
 
         while True:
@@ -27,7 +27,7 @@ def test():
 
             outdata = 'echo ' + indata.decode()
             conn.send(outdata.encode())
-    s.close()
+    rpi4_eth.close()
 
 def main():
     test()
