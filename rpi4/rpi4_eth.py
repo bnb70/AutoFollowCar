@@ -24,8 +24,6 @@ def test():
                     break
                 print('recv: ' + indata.decode())
 
-                outdata = 'echo ' + indata.decode()
-                conn.send(outdata.encode())
     except:
         rpi4_eth.close()
 
