@@ -114,7 +114,7 @@ class Annotator:
                             txt_color,
                             thickness=tf,
                             lineType=cv2.LINE_AA)
-        return box
+        return p1,p2
 
     def masks(self, masks, colors, im_gpu, alpha=0.5, retina_masks=False):
         """Plot masks at once.

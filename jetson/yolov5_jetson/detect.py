@@ -171,8 +171,8 @@ def run(
                     if save_img or save_crop or view_img:  # Add bbox to image
                         c = int(cls)  # integer class
                         label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}')
-                        xy_data = annotator.box_label(xyxy, label, color=colors(c, True))
-                        xy_data = str(xy_data[0])+str(xy_data[1])+str(xy_data[2])+str(xy_data[3])
+                        p1,p2 = annotator.box_label(xyxy, label, color=colors(c, True))
+                        xy_data = '{},{},{},{}'.format(p1[0],p1[1],p2[0],p2[1])
                         jetson_eth.send_data(xy_data)
                     if save_crop:
                         save_one_box(xyxy, imc, file=save_dir / 'crops' / names[c] / f'{p.stem}.jpg', BGR=True)
