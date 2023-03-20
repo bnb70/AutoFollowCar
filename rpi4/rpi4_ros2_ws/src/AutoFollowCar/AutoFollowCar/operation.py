@@ -33,8 +33,12 @@ class coordinate_to_car():
         self.coordinate = data
 
     def get_center(self):
-        center_x = abs(((int(self.coordinate[1]) - int(self.coordinate[3])) / 2) + int(self.coordinate[1]))
-        center_y = abs(((int(self.coordinate[2]) - int(self.coordinate[4])) / 2) + int(self.coordinate[4]))
+        x1 = int(self.coordinate[1])
+        y1 = int(self.coordinate[2])
+        x2 = int(self.coordinate[3])
+        y2 = int(self.coordinate[4])
+        center_x = (abs(x1-x2)/2) + x1
+        center_y = (abs(y1-y2)/2) + y2
         self.center_point = [center_x, center_y]
 
     def move_state(self):
