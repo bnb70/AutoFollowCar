@@ -22,7 +22,7 @@ class rpi4_eth():
             if len(indata) == 0:
                 conn.close()
             else:
-                indata = ('recv: ' + indata.decode())
+                indata = (indata.decode())
                 break
 
         return indata
@@ -39,7 +39,7 @@ class MinimalPublisher(Node):
 
     def timer_callback(self):
         msg = String()
-        msg.data = f'NO.{self.i}:'+self.data.run()
+        msg.data = f'NO.{self.i}:{self.data.run()}'
         self.publisher_.publish(msg)
         self.get_logger().info(f'{msg.data}')
         self.i += 1
