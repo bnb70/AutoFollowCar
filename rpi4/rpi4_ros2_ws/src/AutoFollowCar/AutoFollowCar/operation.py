@@ -27,6 +27,7 @@ class coordinate_to_car():
         return xxyy
 
     def str_split(self, data=""):
+        data = str(data)
         data = data.split(":")
         data = [data[0]] + data[1].split(",")
         self.coordinate = data
