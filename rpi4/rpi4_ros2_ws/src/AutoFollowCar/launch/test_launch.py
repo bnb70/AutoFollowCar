@@ -6,14 +6,14 @@ def generate_launch_description():
         Node(
             package='AutoFollowCar',
             namespace='Car',
-            executable='talker',
-            name='talker'
+            executable='get_jetson_info',
+            name='jetson'
         ),
         Node(
             package='AutoFollowCar',
             namespace='Car',
-            executable='listener',
-            name='listener'
+            executable='operation',
+            name='operation'
         ),
 
     ])
