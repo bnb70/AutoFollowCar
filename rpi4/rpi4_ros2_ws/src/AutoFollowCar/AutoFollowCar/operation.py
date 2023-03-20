@@ -59,18 +59,19 @@ class MinimalPublisher(Node):
         timer_period = 0.2  # seconds
         self.timer = self.create_timer(timer_period, self.timer_callback)
         self.i = 0
+        self.car_move_ = ''
         self.car_move = coordinate_to_car()
 
     def timer_callback(self):
-        car_move_ = self.car_move.run()
         car_move_mag = String()
-        car_move_mag.data = f'{car_move_}'
+        car_move_mag.data = f'{self.car_move_}'
         self.publisher_.publish(car_move_mag)
-        self.get_logger().info(f'Send_car_move_data:{car_move_}')
+        self.get_logger().info(f'Send_car_move_data:{self.car_move_}')
         self.i += 1
 
     def listener_callback(self, jetson_msg):
         self.get_logger().info(f'To_Operation_data:{jetson_msg.data}')
+        self.car_move_ = self.car_move.run(jetson_msg)
 
 def main(args=None):
     rclpy.init(args=args)
