@@ -1,37 +1,46 @@
-import rclpy
-from rclpy.node import Node
-
-from std_msgs.msg import String
+import random
+import time
 
 
-class MinimalSubscriber(Node):
+class coordinate_to_car():
 
     def __init__(self):
-        super().__init__('test')
-        self.subscription = self.create_subscription(
-            String,
-            'topic_jetson_info',
-            self.listener_callback,
-            10)
-        self.subscription  # prevent unused variable warning
+        self.coordinate = []
+        self.i = 0
 
-    def listener_callback(self, jetson_msg):
-        self.get_logger().info('I heard: "%s"' % jetson_msg.data)
+    def random_xxyy(self):
+        x1 = random.randint(0, 640 - 10)
+        y1 = random.randint(10, 640)
+        x2 = random.randint(x1 + 10, 640)
+        y2 = random.randint(0, y1 - 10)
+        xxyy = [x1, y1, x2, y2]
+        return xxyy
+    def str_split(self,data=""):
+        self.i = len(self.coordinate)
+        data = data.split(":")
+        data = [data[0]] + data[1].split(",")
+        self.coordinate += [data]
+        if self.i >= 10:
+            self.coordinate.pop(0)
+        return self.coordinate
 
-
-def main(args=None):
-    rclpy.init(args=args)
-
-    minimal_subscriber = MinimalSubscriber()
-
-    rclpy.spin(minimal_subscriber)
-
-    # Destroy the node explicitly
-    # (optional - otherwise it will be done automatically
-    # when the garbage collector destroys the node object)
-    minimal_subscriber.destroy_node()
-    rclpy.shutdown()
+    def center(self):
+        self.coordinate[]
 
 
-if __name__ == '__main__':
-    main()
+
+
+
+
+
+
+
+
+a = coordinate_to_car()
+
+for i in range(100):
+    xxyy = a.random_xxyy()
+    data = f'NO.{random.randint(1,10)}:{xxyy[0]},{xxyy[1]},{xxyy[2]},{xxyy[3]}'
+    b = a.str_split(data)
+    print(b)
+    time.sleep(1)
