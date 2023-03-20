@@ -30,8 +30,8 @@ setup(
             'get_jetson_info = AutoFollowCar.get_jetson_info:main',
             'operation = AutoFollowCar.operation:main',
             'test = AutoFollowCar.test:main',
-            'talker = py_pubsub.publisher_member_function:main',
-            'listener = py_pubsub.subscriber_member_function:main',
+            'talker = AutoFollowCar.publisher_member_function:main',
+            'listener = AutoFollowCar.subscriber_member_function:main',
         ],
     },
 )
