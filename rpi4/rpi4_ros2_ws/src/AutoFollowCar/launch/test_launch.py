@@ -11,8 +11,8 @@ def generate_launch_description():
         ),
         Node(
             package='AutoFollowCar',
-            namespace='operation',
-            executable='operation',
+            namespace='test',
+            executable='test',
             name='sim'
         ),
 
