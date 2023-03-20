@@ -39,7 +39,7 @@ class MinimalPublisher(Node):
 
     def timer_callback(self):
         jetson_msg = String()
-        jetson_msg.data = f'NO.{self.i}:{self.data.run()}'
+        jetson_msg.data = f'{self.data.run()}'
         self.publisher_.publish(jetson_msg)
         self.get_logger().info(f'{jetson_msg.data}')
         self.i += 1
