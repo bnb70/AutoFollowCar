@@ -137,6 +137,7 @@ def run(
 
         # Process predictions
         for i, det in enumerate(pred):  # per image
+            amount = 0
             seen += 1
             if webcam:  # batch_size >= 1
                 p, im0, frame = path[i], im0s[i].copy(), dataset.count
@@ -169,10 +170,11 @@ def run(
                             f.write(('%g ' * len(line)).rstrip() % line + '\n')
 
                     if save_img or save_crop or view_img:  # Add bbox to image
+                        amount += 1
                         c = int(cls)  # integer class
                         label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}')
                         p1,p2 = annotator.box_label(xyxy, label, color=colors(c, True))
-                        xy_data = '{},{},{},{}'.format(p1[0],p1[1],p2[0],p2[1])
+                        xy_data = f'NO.{amount}:{p1[0]},{p1[1]},{p2[0]},{p2[1]}'
                         jetson_eth.send_data(xy_data)
                     if save_crop:
                         save_one_box(xyxy, imc, file=save_dir / 'crops' / names[c] / f'{p.stem}.jpg', BGR=True)
