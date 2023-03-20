@@ -20,8 +20,8 @@ class MinimalPublisher(Node):
         self.get_logger().info(f'Send_car_move_data:{self.i}')
         self.i += 1
 
-    def listener_callback(self, msg):
-        self.get_logger().info(f'To_Operation_data:{msg.data}')
+    def listener_callback(self, jetson_msg):
+        self.get_logger().info(f'To_Operation_data:{jetson_msg.data}')
 
 
 def main(args=None):

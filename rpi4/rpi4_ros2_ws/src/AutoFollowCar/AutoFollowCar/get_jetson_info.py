@@ -38,10 +38,10 @@ class MinimalPublisher(Node):
         self.data = rpi4_eth()
 
     def timer_callback(self):
-        msg = String()
-        msg.data = f'NO.{self.i}:{self.data.run()}'
-        self.publisher_.publish(msg)
-        self.get_logger().info(f'{msg.data}')
+        jetson_msg = String()
+        jetson_msg.data = f'NO.{self.i}:{self.data.run()}'
+        self.publisher_.publish(jetson_msg)
+        self.get_logger().info(f'{jetson_msg.data}')
         self.i += 1
 
 
