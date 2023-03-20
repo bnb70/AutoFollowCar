@@ -5,15 +5,15 @@ def generate_launch_description():
     return LaunchDescription([
         Node(
             package='AutoFollowCar',
-            namespace='talker',
+            namespace='Car',
             executable='talker',
-            name='sim'
+            name='talker'
         ),
         Node(
             package='AutoFollowCar',
-            namespace='listener',
+            namespace='Car',
             executable='listener',
-            name='sim'
+            name='listener'
         ),
 
     ])
