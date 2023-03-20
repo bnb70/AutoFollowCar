@@ -5,14 +5,14 @@ def generate_launch_description():
     return LaunchDescription([
         Node(
             package='AutoFollowCar',
-            namespace='jetson',
-            executable='get_jetson_info',
+            namespace='talker',
+            executable='talker',
             name='sim'
         ),
         Node(
             package='AutoFollowCar',
-            namespace='test',
-            executable='test',
+            namespace='listener',
+            executable='listener',
             name='sim'
         ),
 
