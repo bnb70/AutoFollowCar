@@ -9,7 +9,7 @@ class MinimalPublisher(Node):
         super().__init__('operation')
         self.publisher_ = self.create_publisher(String, 'topic_car_move', 10)
         self.subscription = self.create_subscription(String,'topic_jetson_info',self.listener_callback,10)
-        timer_period = 0.1  # seconds
+        timer_period = 0.2  # seconds
         self.timer = self.create_timer(timer_period, self.timer_callback)
         self.i = 0
 
