@@ -67,7 +67,7 @@ class MinimalPublisher(Node):
         timer_period = 0.2  # seconds
         self.timer = self.create_timer(timer_period, self.timer_callback)
         self.i = 0
-        self.car_move_ = ''
+        self.car_move_ = '0_stop_N_0'
         self.car_move = coordinate_to_car()
 
     def timer_callback(self):
