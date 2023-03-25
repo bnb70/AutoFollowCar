@@ -1,5 +1,9 @@
 import RPi.GPIO as GPIO
 import time
+import rclpy
+from rclpy.node import Node
+
+from std_msgs.msg import String
 
 class car:
     def __init__(self):
@@ -61,3 +65,49 @@ class car:
         self.start()
         self.MOTOR_L.ChangeDutyCycle(L_SPEED)
         self.MOTOR_R.ChangeDutyCycle(R_SPEED)
+
+class MinimalSubscriber(Node):
+
+    def __init__(self):
+        super().__init__('drive_subscriber')
+        self.subscription = self.create_subscription(
+            String,
+            'topic_car_move',
+            self.listener_callback,
+            10)
+        self.subscription  # prevent unused variable warning
+        self.main_car = car()
+
+    def listener_callback(self, msg):
+        self.get_logger().info(f'car_move_stage:{msg.data}')
+        move_st = str(msg.data)
+        move_st = move_st.split("_")
+        if move_st[1] == 'L':
+            self.main_car.start()
+            self.main_car.move_RL(st=1)
+        elif move_st[1] == 'R':
+            self.main_car.start()
+            self.main_car.move_RL(st=0)
+        elif move_st[1] == 'N':
+            if move_st[2] == 'move':
+                self.main_car.start()
+                self.main_car.move(st=0)
+            elif move_st[2] == 'stop':
+                self.main_car.stop()
+
+def main(args=None):
+    rclpy.init(args=args)
+
+    minimal_subscriber = MinimalSubscriber()
+
+    rclpy.spin(minimal_subscriber)
+
+    # Destroy the node explicitly
+    # (optional - otherwise it will be done automatically
+    # when the garbage collector destroys the node object)
+    minimal_subscriber.destroy_node()
+    rclpy.shutdown()
+
+
+if __name__ == '__main__':
+    main()

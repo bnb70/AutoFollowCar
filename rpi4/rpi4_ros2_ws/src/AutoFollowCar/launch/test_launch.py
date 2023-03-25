@@ -15,5 +15,11 @@ def generate_launch_description():
             executable='operation',
             name='operation'
         ),
+        Node(
+            package='AutoFollowCar',
+            namespace='Car',
+            executable='drive',
+            name='drive'
+        ),
 
     ])

@@ -42,6 +42,7 @@ class coordinate_to_car():
         self.center_point = [center_x, center_y]
 
     def move_state(self):
+
         if self.center_point[0] < 310:
             move_R_L = 'L'
         elif self.center_point[0] > 525:
@@ -52,7 +53,9 @@ class coordinate_to_car():
             move_or_stop = 'move'
         else:
             move_or_stop = 'stop'
-        self.move = f'{move_or_stop}_{move_R_L}'
+        self.move = f'0_{move_or_stop}_{move_R_L}_0'
+        self.center_point[0] = 400
+        self.center_point[1] = 400
         return self.move
 
 class MinimalPublisher(Node):
