@@ -79,7 +79,7 @@ class MinimalPublisher(Node):
     def listener_callback(self, jetson_msg):
         self.get_logger().info(f'To_Operation_data:{jetson_msg.data}')
         self.car_move_ = self.car_move.run(jetson_msg)
-        jetson_msg = ''
+        jetson_msg = '0:0,800,800,0,0'
 
 def main(args=None):
     rclpy.init(args=args)
