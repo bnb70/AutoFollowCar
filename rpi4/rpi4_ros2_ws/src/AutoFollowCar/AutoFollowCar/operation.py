@@ -79,6 +79,7 @@ class MinimalPublisher(Node):
 
     def listener_callback(self, jetson_msg):
         self.get_logger().info(f'To_Operation_data:{jetson_msg.data}')
+        self.car_move_ = '0_stop_N_0'
         self.car_move_ = self.car_move.run(jetson_msg)
 
 def main(args=None):
