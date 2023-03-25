@@ -32,9 +32,8 @@ class car:
         self.MOTOR_L.start(0)
         self.MOTOR_R.start(0)
 
-    def move(self, speed=30, st=0):
+    def move(self, speed=10, st=0):
         self.stop()
-        time.sleep(0.5)
 
         if st == 0:
             GPIO.output(self.MOTOR_R_DIR_PIN, GPIO.LOW)
@@ -47,7 +46,7 @@ class car:
         self.MOTOR_L.ChangeDutyCycle(speed)
         self.MOTOR_R.ChangeDutyCycle(speed)
 
-    def move_RL(self, speed=30, st=0):
+    def move_RL(self, speed=10, st=0):
         self.stop()
         GPIO.output(self.MOTOR_R_DIR_PIN, GPIO.LOW)
         GPIO.output(self.MOTOR_L_DIR_PIN, GPIO.LOW)
@@ -63,3 +62,7 @@ class car:
         self.start()
         self.MOTOR_L.ChangeDutyCycle(L_SPEED)
         self.MOTOR_R.ChangeDutyCycle(R_SPEED)
+
+if __name__ == '__main__':
+    car_a = car()
+    car_a.move()
