@@ -35,11 +35,11 @@ class car:
     def move(self, speed=25, st=0):
 
         if st == 0:
-            GPIO.output(self.MOTOR_R_DIR_PIN, GPIO.HIGH)
-            GPIO.output(self.MOTOR_L_DIR_PIN, GPIO.LOW)
-        elif st == 1:
             GPIO.output(self.MOTOR_R_DIR_PIN, GPIO.LOW)
             GPIO.output(self.MOTOR_L_DIR_PIN, GPIO.HIGH)
+        elif st == 1:
+            GPIO.output(self.MOTOR_R_DIR_PIN, GPIO.HIGH)
+            GPIO.output(self.MOTOR_L_DIR_PIN, GPIO.LOW)
 
         self.start()
         self.MOTOR_L.ChangeDutyCycle(speed)
@@ -53,17 +53,11 @@ class car:
         match st:
             case 0:
                 L_SPEED = int(speed)
-                R_SPEED = int(speed / 2)
+                R_SPEED = int(speed / 1.5)
             case 1:
-                L_SPEED = int(speed / 2)
+                L_SPEED = int(speed / 1.5)
                 R_SPEED = int(speed)
 
         self.start()
         self.MOTOR_L.ChangeDutyCycle(L_SPEED)
         self.MOTOR_R.ChangeDutyCycle(R_SPEED)
-
-if __name__ == '__main__':
-    car_a = car()
-    car_a.move()
-    time.sleep(5)
-    car_a.stop()
