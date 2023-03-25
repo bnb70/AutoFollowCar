@@ -82,17 +82,14 @@ class MinimalSubscriber(Node):
         self.get_logger().info(f'car_move_stage:{msg.data}')
         move_st = str(msg.data)
         move_st = move_st.split("_")
-        if move_st[1] == 'L':
-            self.main_car.start()
+        if move_st[2] == 'L':
             self.main_car.move_RL(st=1)
-        elif move_st[1] == 'R':
-            self.main_car.start()
+        elif move_st[2] == 'R':
             self.main_car.move_RL(st=0)
-        elif move_st[1] == 'N':
-            if move_st[2] == 'move':
-                self.main_car.start()
+        elif move_st[2] == 'N':
+            if move_st[1] == 'move':
                 self.main_car.move(st=0)
-            elif move_st[2] == 'stop':
+            elif move_st[1] == 'stop':
                 self.main_car.stop()
 
 def main(args=None):
