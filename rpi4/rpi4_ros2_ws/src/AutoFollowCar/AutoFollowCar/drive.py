@@ -49,7 +49,7 @@ class car:
         self.MOTOR_L.ChangeDutyCycle(speed)
         self.MOTOR_R.ChangeDutyCycle(speed)
 
-    def move_RL(self, speed=20, st=0):
+    def move_RL(self, speed=10, st=0):
 
         GPIO.output(self.MOTOR_R_DIR_PIN, GPIO.LOW)
         GPIO.output(self.MOTOR_L_DIR_PIN, GPIO.LOW)
