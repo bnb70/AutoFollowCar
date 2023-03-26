@@ -49,7 +49,7 @@ class coordinate_to_car():
             move_R_L = 'R'
         else:
             move_R_L = 'N'
-        if self.center_point[1] < 235 and self.center_point[1] != 0:
+        if self.center_point[1] < 195 and self.center_point[1] != 0:
             move_or_stop = 'move'
         else:
             move_or_stop = 'stop'
