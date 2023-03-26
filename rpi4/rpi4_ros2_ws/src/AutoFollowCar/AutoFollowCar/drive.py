@@ -49,7 +49,7 @@ class car:
         self.MOTOR_L.ChangeDutyCycle(speed)
         self.MOTOR_R.ChangeDutyCycle(speed)
 
-    def move_RL(self, speed=10, st=0):
+    def move_RL(self, speed=20, st=0):
 
         GPIO.output(self.MOTOR_R_DIR_PIN, GPIO.LOW)
         GPIO.output(self.MOTOR_L_DIR_PIN, GPIO.LOW)
@@ -58,13 +58,18 @@ class car:
             case 0:
                 GPIO.output(self.MOTOR_R_DIR_PIN, GPIO.LOW)
                 GPIO.output(self.MOTOR_L_DIR_PIN, GPIO.LOW)
+                L_speed = speed
+                R_speed = speed/2
             case 1:
                 GPIO.output(self.MOTOR_R_DIR_PIN, GPIO.HIGH)
                 GPIO.output(self.MOTOR_L_DIR_PIN, GPIO.HIGH)
+                L_speed = speed/2
+                R_speed = speed
+
 
         self.start()
-        self.MOTOR_L.ChangeDutyCycle(speed)
-        self.MOTOR_R.ChangeDutyCycle(speed)
+        self.MOTOR_L.ChangeDutyCycle(L_speed)
+        self.MOTOR_R.ChangeDutyCycle(R_speed)
 
 class MinimalSubscriber(Node):
 
