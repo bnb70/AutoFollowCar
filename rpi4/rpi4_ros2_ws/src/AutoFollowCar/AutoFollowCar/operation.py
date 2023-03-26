@@ -33,12 +33,12 @@ class coordinate_to_car():
         self.coordinate = data
 
     def get_center(self):
-        x1 = int(self.coordinate[1])
-        y1 = int(self.coordinate[2])
-        x2 = int(self.coordinate[3])
-        y2 = int(self.coordinate[4])
-        center_x = (abs(x1-x2)/2) + x1
-        center_y = (abs(y1-y2)/2) + y2
+        self.x1 = int(self.coordinate[1])
+        self.y1 = int(self.coordinate[2])
+        self.x2 = int(self.coordinate[3])
+        self.y2 = int(self.coordinate[4])
+        center_x = (abs(self.x1-self.x2)/2) + self.x1
+        center_y = (abs(self.y1-self.y2)/2) + self.y2
         self.center_point = [center_x, center_y]
 
     def move_state(self):
@@ -61,11 +61,12 @@ class MinimalPublisher(Node):
 
     def __init__(self):
         super().__init__('operation')
-        self.subscription = self.create_subscription(String, 'topic_jetson_info', self.listener_callback, 10)
-        self.publisher_ = self.create_publisher(String, 'topic_car_move', 10)
+        self.subscription = self.create_subscription(String, 'topic_jetson_info', self.listener_callback, 2)
+        self.publisher_ = self.create_publisher(String, 'topic_car_move', 2)
         timer_period = 0.2  # seconds
         self.timer = self.create_timer(timer_period, self.timer_callback)
         self.i = 0
+        self.connt = 0
         self.car_move_ = '0_stop_N_0'
         self.car_move = coordinate_to_car()
 
@@ -74,12 +75,22 @@ class MinimalPublisher(Node):
         car_move_mag.data = f'{self.car_move_}'
         self.publisher_.publish(car_move_mag)
         self.get_logger().info(f'Send_car_move_data:{self.car_move_}')
-        #self.car_move_ = '0_stop_N_0'
+        self.car_move_data_fun()
         self.i += 1
 
     def listener_callback(self, jetson_msg):
+        self.jetson_msg = jetson_msg.data
         self.get_logger().info(f'To_Operation_data:{jetson_msg.data}')
-        self.car_move_ = self.car_move.run(jetson_msg)
+        self.car_move_ = self.car_move.run(jetson_msg.data)
+
+    def car_move_data_fun(self):
+        if self.jetson_msg == 'NO.0:999,999,999,999,0':
+            self.connt += 1
+            if self.connt >= 5:
+                self.car_move_ = '0_stop_N_0'
+        else:
+            self.connt = 0
+            pass
 
 def main(args=None):
     rclpy.init(args=args)

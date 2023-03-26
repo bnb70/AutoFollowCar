@@ -75,11 +75,7 @@ class MinimalSubscriber(Node):
 
     def __init__(self):
         super().__init__('drive_subscriber')
-        self.subscription = self.create_subscription(
-            String,
-            'topic_car_move',
-            self.listener_callback,
-            10)
+        self.subscription = self.create_subscription(String,'topic_car_move',self.listener_callback,2)
         self.subscription  # prevent unused variable warning
         self.main_car = car()
 

@@ -20,10 +20,16 @@ class rpi4_eth():
             conn, addr = self.rpi4_eth.accept()
             indata = conn.recv(1024)
             if len(indata) == 0:
+                self.i += 1
+                if self.i >= 5:
+                    indata = 'NO.0:999,999,999,999,0'
+                    self.i = 0
                 conn.close()
             else:
                 indata = (indata.decode())
                 break
+
+
 
         return indata
 
@@ -31,7 +37,7 @@ class MinimalPublisher(Node):
 
     def __init__(self):
         super().__init__('jetson_info_publisher')
-        self.publisher_ = self.create_publisher(String, 'topic_jetson_info', 10)
+        self.publisher_ = self.create_publisher(String, 'topic_jetson_info', 2)
         timer_period = 0.2  # seconds
         self.timer = self.create_timer(timer_period, self.timer_callback)
         self.i = 0
