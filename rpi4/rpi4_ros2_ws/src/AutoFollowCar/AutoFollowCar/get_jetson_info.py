@@ -14,22 +14,24 @@ class rpi4_eth():
         self.rpi4_eth.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.rpi4_eth.bind((self.rpi4_ip, self.ip_port))
         self.rpi4_eth.listen(5)
+        self.i = 0
 
     def run(self):
         while True:
             conn, addr = self.rpi4_eth.accept()
             indata = conn.recv(1024)
+
             if len(indata) == 0:
                 self.i += 1
-                if self.i >= 5:
-                    indata = 'NO.0:999,999,999,999,0'
-                    self.i = 0
                 conn.close()
             else:
                 indata = (indata.decode())
                 break
 
-
+            if self.i >= 5:
+                indata = 'NO.0:999,999,999,999,0'
+                self.i = 0
+                break
 
         return indata
 
